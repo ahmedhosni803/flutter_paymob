@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_paymob_payment/flutter_paymob_payment.dart';
+import 'package:flutter_paymob/flutter_paymob.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   FlutterPaymob.instance.initialize(
-      apiKey:
-          "ZXlKaGJHY2lPaUpJVXpVeE1pSXNJblI1Y0NJNklrcFhWQ0o5LmV5SmpiR0Z6Y3lJNklrMWxjbU5vWVc1MElpd2ljSEp2Wm1sc1pWOXdheUk2T1RVeE5UY3lMQ0p1WVcxbElqb2lhVzVwZEdsaGJDSjkuV0VmSVJaMmZZQV9SZmJMU2ZpcERNNno2WFpTcjBlYlFvejdzaGJGQWFEa21BTUlQdm42VWdVclFKb0pfTVQ5RlpFS3h1TmxNU2lKQVQ2Y3NCNVhLZHc=",
-      integrationID: 4432489,
-      walletIntegrationId: 4432492,
-      iFrameID: 814230);
+      apiKey: "",
+      integrationID: 123456,
+      walletIntegrationId: 123456,
+      iFrameID: 123456);
   runApp(const MyApp());
 }
 

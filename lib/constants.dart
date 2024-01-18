@@ -7,5 +7,3 @@ class Constants {
   static const String wallet =
       "https://accept.paymob.com/api/acceptance/payments/pay";
 }
-
-enum paymentType { card, wallet }

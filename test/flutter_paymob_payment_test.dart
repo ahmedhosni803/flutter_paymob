@@ -1,6 +1,5 @@
+import 'package:flutter_paymob/flutter_paymob.dart';
 import 'package:flutter_test/flutter_test.dart';
-
-import 'package:flutter_paymob_payment/flutter_paymob_payment.dart';
 
 void main() {
   test('adds one to input values', () {

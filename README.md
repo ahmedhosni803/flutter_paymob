@@ -1,3 +1,6 @@
+
+Easily accept payments through Online Cards and Wallet in your app with Paymob.
+
 ## :rocket: Installation
 
 Add this to `dependencies` in your app's `pubspec.yaml`
@@ -6,13 +9,11 @@ Add this to `dependencies` in your app's `pubspec.yaml`
 flutter_paymob : latest_version
 ```
 
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder.
 
 ## : Initialization
 
 ```dart
-      void main() {
+  void main() {
   WidgetsFlutterBinding.ensureInitialized();
   ...
   FlutterPaymob.instance.initialize(
