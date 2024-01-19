@@ -10,7 +10,7 @@ flutter_paymob : latest_version
 ```
 
 
-## :start:: Initialization
+## ⭐: Initialization
 
 In your main.dart file, make sure to configure the Flutter Paymob library properly:
 
