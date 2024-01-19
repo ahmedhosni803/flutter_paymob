@@ -1,5 +1,5 @@
-
-Easily accept payments through Online Cards and Wallet in your app with Paymob.
+## Flutter Paymob
+Flutter Paymob is a library that enables Flutter applications to accept payments through online cards and electronic wallets using the Paymob service.
 
 ## :rocket: Installation
 
@@ -11,6 +11,8 @@ flutter_paymob : latest_version
 
 
 ## : Initialization
+
+In your main.dart file, make sure to configure the Flutter Paymob library properly:
 
 ```dart
   void main() {
@@ -33,6 +35,9 @@ flutter_paymob : latest_version
 > or
 > Create your own  
 > if you want to create different iFrames or integrations
+> Alternatively, you can create your own instance:
+
+
 ```dart
 final FlutterPaymob flutterPaymob = FlutterPaymob();
   flutterPaymob.initialize(
@@ -44,7 +49,7 @@ final FlutterPaymob flutterPaymob = FlutterPaymob();
 ```
 ## :bookmark: Usage
  
-## Usage Card 
+## Payment with Card
 
 ```dart
   FlutterPaymob.instance.payWithCard(
@@ -61,7 +66,7 @@ final FlutterPaymob flutterPaymob = FlutterPaymob();
 ```
 
 
-## Usage wallet
+## Payment with Wallet
 
 ```dart
   FlutterPaymob.instance.payWithWallet(
@@ -88,4 +93,19 @@ final FlutterPaymob flutterPaymob = FlutterPaymob();
 | message       | String? | A brief message describing the transaction |
 
 
+## Test
+Use the following card test data to perform a test transaction with your test integration ID:
 
+#### MasterCard
+
+| Variable     | Description      |
+|--------------|------------------|
+| Card Number  | 5123456789012346 |
+| Expiry Month | 12               |
+| Expiry Year  | 25               |
+| CVV          | 123              |
+
+
+👍
+That's it, you've successfully finalized your Card payments integration with Accept :tada:.
+Now, prepare endpoints to receive payment notifications from Accept's server, to learn more about the transactions webhooks
