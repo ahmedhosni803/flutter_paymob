@@ -105,7 +105,17 @@ Use the following card test data to perform a test transaction with your test in
 | Expiry Year  | 25               |
 | CVV          | 123              |
 
-
 👍
 That's it, you've successfully finalized your Card payments integration with Accept :tada:.
+Now, prepare endpoints to receive payment notifications from Accept's server, to learn more about the transactions webhooks
+
+#### Wallet
+
+| Mobile Number | PIN    | OTP    |
+|---------------|--------|--------|
+| 01010101010   | 123456 | 123456 |
+
+
+👍
+That's it, you've successfully finalized your Mobile Wallets Payments integration with Accept :tada:.
 Now, prepare endpoints to receive payment notifications from Accept's server, to learn more about the transactions webhooks
