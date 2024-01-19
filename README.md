@@ -1,5 +1,5 @@
 ## Flutter Paymob
-Flutter Paymob is a library that enables Flutter applications to accept payments through online cards and electronic wallets using the Paymob service.
+#### Flutter Paymob is a library that enables Flutter applications to accept payments through online cards and electronic wallets using the Paymob service.
 
 ## :rocket: Installation
 
@@ -33,7 +33,6 @@ In your main.dart file, make sure to configure the Flutter Paymob library proper
 >
 > You can use this singleton (instance)
 > or
-> Create your own  
 > if you want to create different iFrames or integrations
 > Alternatively, you can create your own instance:
 
@@ -49,7 +48,7 @@ final FlutterPaymob flutterPaymob = FlutterPaymob();
 ```
 ## :bookmark: Usage
  
-## Payment with Card
+## 💳 Payment with Card
 
 ```dart
   FlutterPaymob.instance.payWithCard(
@@ -66,7 +65,7 @@ final FlutterPaymob flutterPaymob = FlutterPaymob();
 ```
 
 
-## Payment with Wallet
+## 📲 Payment with Wallet
 
 ```dart
   FlutterPaymob.instance.payWithWallet(
