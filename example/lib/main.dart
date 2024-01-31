@@ -4,7 +4,7 @@ import 'package:flutter_paymob/flutter_paymob.dart';
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   FlutterPaymob.instance.initialize(
-      apiKey: "",
+      apiKey: "auth key",
       integrationID: 123456,
       walletIntegrationId: 123456,
       iFrameID: 123456);

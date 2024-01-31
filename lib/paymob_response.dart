@@ -1,19 +1,19 @@
-class PaymobResponse {
+class PaymentPaymobResponse {
   bool success;
   String? transactionID;
   String? responseCode;
   String? message;
 
-  PaymobResponse({
-    this.transactionID,
+  PaymentPaymobResponse({
     required this.success,
+    this.transactionID,
     this.responseCode,
     this.message,
   });
 
-  factory PaymobResponse.fromJson(Map<String, dynamic> json) {
-    return PaymobResponse(
-      success: json['success'] == 'true',
+  factory PaymentPaymobResponse.fromJson(Map<String, dynamic> json) {
+    return PaymentPaymobResponse(
+      success: json['success'] == true,
       transactionID: json['id'],
       message: json['message'],
       responseCode: json['txn_response_code'],

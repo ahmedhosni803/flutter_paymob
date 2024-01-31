@@ -1,6 +1,6 @@
 name: flutter_paymob
-description: Easily accept payments through Online Cards in your Flutter app with Paymob.
-version: 1.0.0
+description: Easily accept payments via online cards and mobile wallets in your Flutter app with Paymob.
+version: 1.0.3
 homepage: https://github.com/ahmedhosni803/flutter_paymob
 repository: https://github.com/ahmedhosni803/flutter_paymob
 

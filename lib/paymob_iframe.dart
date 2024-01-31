@@ -10,12 +10,12 @@ class PaymobIFrame extends StatefulWidget {
   }) : super(key: key);
 
   final String redirectURL;
-  final void Function(PaymobResponse)? onPayment;
+  final void Function(PaymentPaymobResponse)? onPayment;
 
-  static Future<PaymobResponse?> show({
+  static Future<PaymentPaymobResponse?> show({
     required BuildContext context,
     required String redirectURL,
-    void Function(PaymobResponse)? onPayment,
+    void Function(PaymentPaymobResponse)? onPayment,
   }) =>
       Navigator.of(context).push(
         MaterialPageRoute(
@@ -46,7 +46,7 @@ class _PaymobIFrameState extends State<PaymobIFrame> {
                 request.url.contains('success') &&
                 request.url.contains('id')) {
               final params = _getParamFromURL(request.url);
-              final response = PaymobResponse.fromJson(params);
+              final response = PaymentPaymobResponse.fromJson(params);
               if (widget.onPayment != null) {
                 widget.onPayment!(response);
               }

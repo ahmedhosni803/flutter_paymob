@@ -3,7 +3,7 @@ library flutter_paymob;
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_paymob/paymob_billing_data.dart';
+import 'package:flutter_paymob/billing_data.dart';
 import 'package:flutter_paymob/paymob_iframe.dart';
 import 'package:flutter_paymob/paymob_response.dart';
 import 'package:http/http.dart' as http;
@@ -11,6 +11,7 @@ import 'package:http/http.dart' as http;
 import 'constants.dart';
 
 class FlutterPaymob {
+  // Necessary properties for managing Paymob instance
   late String _authKey;
   late String _authToken;
   late String _paymentKey;
@@ -22,9 +23,15 @@ class FlutterPaymob {
   late int _orderId;
   late int _userTokenExpiration;
   bool _isInitialized = false;
-  static FlutterPaymob instance = FlutterPaymob();
+  static FlutterPaymob instance = FlutterPaymob(); // Singleton instance
+  Constants constants = Constants.production();
 
   // Initialize Paymob instance.
+  // apiKey: API key for authentication
+  // integrationID: Integration ID for card payments
+  // walletIntegrationId: Integration ID for wallet payments
+  // iFrameID: ID for iFrame
+  // userTokenExpiration: Expiration time for user token
   Future<bool> initialize({
     required String apiKey,
     int? integrationID,
@@ -35,6 +42,7 @@ class FlutterPaymob {
     if (_isInitialized) {
       return true;
     }
+    // Initialize properties
     _authKey = apiKey;
     _integrationId = integrationID!;
     _walletIntegrationId = walletIntegrationId!;
@@ -50,14 +58,17 @@ class FlutterPaymob {
 
   // Get API Key from the server.
   Future<String> _getApiKey() async {
+    // Prepare request body
     Map<String, dynamic> requestBody = {"api_key": _authKey};
     String requestBodyJson = jsonEncode(requestBody);
+    // Send POST request to get API key
     http.Response response = await http.post(
-      Uri.parse(Constants.authorization),
+      Uri.parse(constants.authorization),
       body: requestBodyJson,
       headers: headers,
     );
 
+    // Process response
     if (response.statusCode >= 200 && response.statusCode < 300) {
       _authToken = jsonDecode(response.body)["token"];
       return _authToken;
@@ -68,6 +79,7 @@ class FlutterPaymob {
 
   // Get Order ID from the server.
   Future<int> _getOrderId(double amount, String currency) async {
+    // Prepare request body
     Map<String, dynamic> requestBody = {
       "auth_token": _authToken,
       "delivery_needed": "false",
@@ -76,8 +88,10 @@ class FlutterPaymob {
       "items": []
     };
     String requestBodyJson = jsonEncode(requestBody);
-    http.Response response = await http.post(Uri.parse(Constants.order),
+    // Send POST request to get order ID
+    http.Response response = await http.post(Uri.parse(constants.order),
         body: requestBodyJson, headers: headers);
+    // Process response
     if (response.statusCode >= 200) {
       _orderId = jsonDecode(response.body)["id"];
       return _orderId;
@@ -91,22 +105,24 @@ class FlutterPaymob {
     required double amount,
     required String currency,
     required String integrationId,
-    required PaymobBillingData billingData,
+    required BillingData billingData,
   }) async {
+    // Prepare request body
     Map<String, dynamic> requestBody = {
       "auth_token": _authToken,
       "expiration": _userTokenExpiration,
       "amount_cents": "${amount * 100}",
       "order_id": _orderId,
-      "billing_data": billingData
-          .toJson(), // Assuming toJson() is implemented in PaymobBillingData
+      "billing_data": billingData.toJson(),
       "currency": currency,
       "integration_id": integrationId,
       "lock_order_when_paid": "false"
     };
     String requestBodyJson = jsonEncode(requestBody);
-    http.Response response = await http.post(Uri.parse(Constants.keys),
+    // Send POST request to get payment token
+    http.Response response = await http.post(Uri.parse(constants.keys),
         body: requestBodyJson, headers: headers);
+    // Process response
     if (response.statusCode >= 200) {
       _paymentKey = jsonDecode(response.body)["token"];
       return _paymentKey;
@@ -115,16 +131,20 @@ class FlutterPaymob {
     }
   }
 
+  // Request wallet URL for payment.
   Future<String> _requestUrlWallet({
     required String number,
   }) async {
+    // Prepare request body
     Map<String, dynamic> requestBody = {
       "source": {"identifier": number, "subtype": "WALLET"},
       "payment_token": _paymentKey // token obtained in step 3
     };
     String requestBodyJson = jsonEncode(requestBody);
-    http.Response response = await http.post(Uri.parse(Constants.wallet),
+    // Send POST request to get wallet URL
+    http.Response response = await http.post(Uri.parse(constants.wallet),
         body: requestBodyJson, headers: headers);
+    // Process response
     if (response.statusCode >= 200) {
       _walletURL = jsonDecode(response.body)["redirect_url"];
       return _walletURL;
@@ -138,9 +158,8 @@ class FlutterPaymob {
     required BuildContext context,
     required String currency,
     required double amount,
-    void Function(PaymobResponse response)? onPayment,
-    List? items,
-    PaymobBillingData? billingData,
+    void Function(PaymentPaymobResponse response)? onPayment,
+    BillingData? billingData,
   }) async {
     await _getApiKey();
     await _getOrderId(amount, currency);
@@ -148,7 +167,7 @@ class FlutterPaymob {
         integrationId: _integrationId.toString(),
         amount: amount,
         currency: currency,
-        billingData: billingData ?? PaymobBillingData());
+        billingData: billingData ?? BillingData());
     if (context.mounted) {
       final response = await PaymobIFrame.show(
         context: context,
@@ -160,14 +179,14 @@ class FlutterPaymob {
     return null;
   }
 
+  // Initiate payment with a wallet.
   Future payWithWallet({
     required BuildContext context,
     required String currency,
     required String number,
     required double amount,
-    void Function(PaymobResponse response)? onPayment,
-    List? items,
-    PaymobBillingData? billingData,
+    void Function(PaymentPaymobResponse response)? onPayment,
+    BillingData? billingData,
   }) async {
     await _getApiKey();
     await _getOrderId(amount, currency);
@@ -175,7 +194,7 @@ class FlutterPaymob {
         integrationId: _walletIntegrationId.toString(),
         amount: amount,
         currency: currency,
-        billingData: billingData ?? PaymobBillingData());
+        billingData: billingData ?? BillingData());
     await _requestUrlWallet(number: number);
     if (context.mounted) {
       final response = await PaymobIFrame.show(
