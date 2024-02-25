@@ -74,10 +74,10 @@ packages:
     dependency: "direct main"
     description:
       name: flutter_paymob
-      sha256: "9b1968d66a2dab0695363b3698b2aa3a9d5ec79b1ac6476dbfe56d6cd410a560"
+      sha256: "0a00a4b367bb013ed58706e1984c9489bb73e284346867f97c1126a2f14a26fd"
       url: "https://pub.dev"
     source: hosted
-    version: "1.0.2"
+    version: "1.0.4"
   flutter_test:
     dependency: "direct dev"
     description: flutter

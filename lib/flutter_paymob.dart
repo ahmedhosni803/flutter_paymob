@@ -12,15 +12,28 @@ import 'constants.dart';
 
 class FlutterPaymob {
   // Necessary properties for managing Paymob instance
+  /// from dashboard Select Settings -> Account Info -> API Key
   late String _authKey;
   late String _authToken;
   late String _paymentKey;
   late String _iFrameURL;
   late String _walletURL;
   late int _iFrameID;
+
+  /// from dashboard Select Developers -> Payment Integrations -> Online Card ID
+
   late int _integrationId;
+
+  /// from dashboard Select Developers -> Payment Integrations -> Online wallet
+
   late int _walletIntegrationId;
+
+  /// from paymob Select Developers -> iframes
+
   late int _orderId;
+
+  /// userTokenExpiration the expiration time for user token in seconds (3600 by default and max )
+
   late int _userTokenExpiration;
   bool _isInitialized = false;
   static FlutterPaymob instance = FlutterPaymob(); // Singleton instance
@@ -33,10 +46,19 @@ class FlutterPaymob {
   // iFrameID: ID for iFrame
   // userTokenExpiration: Expiration time for user token
   Future<bool> initialize({
+    /// from dashboard Select Settings -> Account Info -> API Key
     required String apiKey,
+
+    /// from dashboard Select Developers -> Payment Integrations -> Online Card ID
     int? integrationID,
+
+    /// from dashboard Select Developers -> Payment Integrations -> Online wallet
     int? walletIntegrationId,
+
+    /// from paymob Select Developers -> iframes
     required int iFrameID,
+
+    /// userTokenExpiration the expiration time for user token in seconds (3600 by default and max )
     int userTokenExpiration = 3600,
   }) async {
     if (_isInitialized) {
