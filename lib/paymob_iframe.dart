@@ -80,7 +80,7 @@ class _PaymobIFrameState extends State<PaymobIFrame> {
     final uri = Uri.parse(url);
     Map<String, dynamic> data = {};
     uri.queryParameters.forEach((key, value) {
-      data[key] = value;
+      data[key] = value.toString();
     });
     return data;
   }
