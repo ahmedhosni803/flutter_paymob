@@ -11,8 +11,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  http:
-  flutter_inappwebview:
+  http: ^1.5.0
+  flutter_inappwebview: ^6.1.5
 
 dev_dependencies:
   flutter_test:
