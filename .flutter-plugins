@@ -1,4 +1,7 @@
 # This is a generated file; do not edit or check into version control.
-webview_flutter=C:\\Users\\Ahmed\\AppData\\Local\\Pub\\Cache\\hosted\\pub.dev\\webview_flutter-4.4.4\\
-webview_flutter_android=C:\\Users\\Ahmed\\AppData\\Local\\Pub\\Cache\\hosted\\pub.dev\\webview_flutter_android-3.13.2\\
-webview_flutter_wkwebview=C:\\Users\\Ahmed\\AppData\\Local\\Pub\\Cache\\hosted\\pub.dev\\webview_flutter_wkwebview-3.10.2\\
+flutter_inappwebview=/Users/ahmed/.pub-cache/hosted/pub.dev/flutter_inappwebview-6.1.5/
+flutter_inappwebview_android=/Users/ahmed/.pub-cache/hosted/pub.dev/flutter_inappwebview_android-1.1.3/
+flutter_inappwebview_ios=/Users/ahmed/.pub-cache/hosted/pub.dev/flutter_inappwebview_ios-1.1.2/
+flutter_inappwebview_macos=/Users/ahmed/.pub-cache/hosted/pub.dev/flutter_inappwebview_macos-1.1.2/
+flutter_inappwebview_web=/Users/ahmed/.pub-cache/hosted/pub.dev/flutter_inappwebview_web-1.1.2/
+flutter_inappwebview_windows=/Users/ahmed/.pub-cache/hosted/pub.dev/flutter_inappwebview_windows-0.6.0/

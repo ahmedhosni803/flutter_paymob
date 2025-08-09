@@ -1,142 +1,159 @@
-## Flutter Paymob
-#### Flutter Paymob is a library that allows Flutter applications to accept online card and e-wallet payments through the Paymob service.
 
-### Inspired by [Ahmed Abogameel](https://www.linkedin.com/in/jimmy2622000)!
+---
 
-## :rocket: Installation
+# 🚀 Flutter Paymob — Accept Payments with Zero Hassle
 
-Add this to `dependencies` in your app's `pubspec.yaml`
+> **Integrate Paymob card & wallet payments inside your Flutter app with ease.**
+> Secure, fast, and ready for production.
+
+---
+
+## 📥 Installation
+
+Just add to your `pubspec.yaml`:
 
 ```yaml
-flutter_paymob : latest_version
+flutter_paymob: ^latest_version
 ```
 
+---
 
-## ⭐: Initialization
-### To initialize the FlutterPaymob instance, you can use the initialize method. Here's how you can initialize it:
-In the main.dart file, make sure the Flutter Paymob library is configured correctly:
+## 🔧 Setup & Initialization
+
+Before your app runs, initialize:
 
 ```dart
-  void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  ...
-  FlutterPaymob.instance.initialize(
-      apiKey:
-      "auth key", //  // from dashboard Select Settings -> Account Info -> API Key 
-      integrationID: 123456 , // // from dashboard Select Developers -> Payment Integrations -> Online Card ID 
-      walletIntegrationId: 123456, // // from dashboard Select Developers -> Payment Integrations -> Online wallet
-      iFrameID: 12346); // from paymob Select Developers -> iframes 
-  ...
+
+  await FlutterPaymob.instance.initialize(
+    apiKey: "YOUR_PAYMOB_API_KEY",
+    integrationID: 123456,         // Card integration ID
+    walletIntegrationId: 654321,   // Wallet integration ID
+    iFrameID: 789012,              // Paymob iframe ID
+  );
+
   runApp(const MyApp());
 }
 ```
 
-> :pushpin: Note :
->
-> You can use (instance).
-> or
-> If you want to create a different iframe or integration
-> Alternatively, you can create your own instance:
+---
+
+## ⚡ Quick Usage Guide
+
+### Pay with Card 💳
 
 ```dart
-final FlutterPaymob flutterPaymob = FlutterPaymob();
-  flutterPaymob.initialize(
-    apiKey:"auth key",   // from dashboard Select Settings -> Account Info -> API Key 
-    integrationID: 123456 , // optional => from dashboard Select Developers -> Payment Integrations -> Online Card ID 
-    walletIntegrationId: 123456, // optional => from dashboard Select Developers -> Payment Integrations -> Online wallet
-    iFrameID: 12346); // from paymob Select Developers -> iframes 
+await FlutterPaymob.instance.payWithCard(
+  title: Text("Card Payment"), // Optional - Custom title AppBar
+  appBarColor: Colors.blueAccent, // Optional - Custom AppBar color
+  context: context,
+  currency: "EGP", 
+  amount: 150, 
+  onPayment: (response) {
+    if (response.success) {
+      print("🎉 Payment Success! TxID: ${response.transactionID}");
+    } else {
+      print("❌ Payment Failed: ${response.message}");
+    }
+  },
 );
 ```
-## :💡: Usage
-### To use the FlutterPaymob instance after it has been initialized, you can make payment attempts using either a card or a wallet. Here's how you can use it:
- 
 
-## 💳 Payment with Card
-### To initiate a payment with a card using the FlutterPaymob instance, you can use the payWithCard method. Here's how you can use it:
+### Pay with Wallet 📱
 
 ```dart
-// Initiates a payment with a card using the FlutterPaymob instance
-  FlutterPaymob.instance.payWithCard(
-    context: context, // Passes the BuildContext required for UI interactions
-    currency: "EGP", // Specifies the currency for the transaction (Egyptian Pound)
-    amount: 100, // Sets the amount of money to be paid (100 EGP)
-    // Optional callback function invoked when the payment process is completed
-    onPayment: (response) {
-    // Checks if the payment was successful
-    if (response.success == true) {
-    // If successful, displays a snackbar with the success message
-    ScaffoldMessenger.of(context).showSnackBar(
-    SnackBar(
-      content: Text(response.message ??
-      "Success"), // Shows "Success" message or response message
-        ),
-    );}
-    },
-  );
-
+await FlutterPaymob.instance.payWithWallet(
+title: Text("Card Payment"), // Optional - Custom title AppBar
+appBarColor: Colors.blueAccent, // Optional - Custom AppBar color
+  context: context,
+  currency: "EGP",
+  amount: 150,
+  number: "01010101010",
+  onPayment: (response) {
+    if (response.success) {
+      print("🎉 Wallet Payment Successful");
+    } else {
+      print("❌ Wallet Payment Failed");
+    }
+  },
+);
 ```
 
+---
 
-## 📲 Payment with Wallet
-### To initiate a payment with a wallet using the FlutterPaymob instance, you can use the payWithWallet method. Here's how you can use it:
+## 💡 Response Object Breakdown
 
-```dart
-// Initiates a payment with a wallet using the FlutterPaymob instance
-    FlutterPaymob.instance.payWithWallet(
-       context: context, // Passes the BuildContext required for UI interactions
-       currency: "EGP", // Specifies the currency for the transaction (Egyptian Pound)
-       amount: 100, // Sets the amount of money to be paid (100 EGP)
-       number: "01010101010", // Specifies the wallet number
-       // Optional callback function invoked when the payment process is completed
-       onPayment: (response) {
-       // Checks if the payment was successful
-       if (response.success == true) {
-       // If successful, displays a snackbar with the success message
-       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(response.message ?? "Success"), // Shows "Success" message or response message
-         ),
-    );}
-    },
-  );
+| Field         | Type    | Meaning                           |
+| ------------- | ------- | --------------------------------- |
+| success       | bool    | Was the payment successful?       |
+| transactionID | String? | Unique ID for the transaction     |
+| responseCode  | String? | Numeric response from Paymob API  |
+| message       | String? | Description / message from Paymob |
 
-```
+---
 
-## :incoming_envelope: PaymobResponse
+## 🧪 Test Credentials
 
-| Variable      | Type    | Description          |
-| ------------- |---------| -------------------- |
-| success       | bool    | Indicates if the transaction was successful or not |
-| transactionID | String? | The ID of the transaction |
-| responseCode  | String? | The response code for the transaction |
-| message       | String? | A brief message describing the transaction |
+| Type   | Number / PIN        | Expiry | CVV | OTP    |
+| ------ | ------------------- | ------ | --- | ------ |
+| Card   | 5123 4567 8901 2346 | 12/25  | 123 | -      |
+| Wallet | 01010101010         | -      | -   | 123456 |
 
+---
 
-## Test
-Use the following card test data to perform a test transaction with your test integration ID:
+## 🚨 Important Notes
 
-#### MasterCard
+* **Webhook integration is a must!** Always verify transactions on your backend with Paymob webhooks to prevent fraud.
+* Customize UI elements (`title`, `appBarColor`) to match your brand.
+* Use **sandbox keys** during development to avoid live charges.
+* **Error Handling:** Always wrap payment calls with try-catch to gracefully handle network or API failures.
+* **Logging:** Log transaction attempts and responses for debugging and auditing.
+* **Localization:** You can customize strings/messages in your app UI to support multiple languages.
+* **Security:** Never expose your API keys or sensitive info in the client code; keep them safe on the server when possible.
 
-| Variable     | Description      |
-|--------------|------------------|
-| Card Number  | 5123456789012346 |
-| Expiry Month | 12               |
-| Expiry Year  | 25               |
-| CVV          | 123              |
+---
 
-👍
-That's it, you've successfully finalized your Card payments integration with Accept :tada:.
-Now, prepare endpoints to receive payment notifications from Accept's server, to learn more about the transactions webhooks
+## 🔄 Handling Payment States
 
-#### Wallet
+The `onPayment` callback triggers on **success, failure, or cancellation**.
+Use the `response.success` boolean and `response.message` to determine the payment state and update your UI accordingly.
 
-| Mobile Number | PIN    | OTP    |
-|---------------|--------|--------|
-| 01010101010   | 123456 | 123456 |
+---
 
+## 🛠️ Troubleshooting
 
-👍
-That's it, you've successfully finalized your Mobile Wallets Payments integration with Accept :tada:.
-Now, prepare endpoints to receive payment notifications from Accept's server, to learn more about the transactions webhooks
+* **Blank iframe or webview?**
 
-### To Contact with me  [Ahmed Hosni](https://www.linkedin.com/in/ahmed-hosni-705814240)
+  * Check your internet connection.
+  * Make sure your iFrame ID and payment tokens are valid and not expired.
+  * Verify your Paymob account and integration settings.
+
+* **PlatformException about view creation?**
+
+  * Make sure you are using the latest `webview_flutter` package compatible with your Flutter version.
+  * Avoid creating multiple instances of the webview controller simultaneously.
+
+* **Payment not completing or stuck?**
+
+  * Confirm your API credentials and integration IDs.
+  * Enable verbose logging if available to inspect requests and responses.
+
+---
+
+## 🔗 Useful Links
+
+* [Paymob API Docs](https://accept.paymob.com/api)
+
+---
+
+## 📞 Contact
+
+Need help or want to customize? Reach out to me:
+[Ahmed Hosni - LinkedIn](https://www.linkedin.com/in/ahmed-hosni-705814240)
+
+---
+
+# Happy coding & smooth payments! 🎉
+
+---
