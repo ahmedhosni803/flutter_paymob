@@ -59,6 +59,7 @@ class _PaymobIFrameInAppState extends State<PaymobIFrameInApp> {
               useOnLoadResource: true,
               useHybridComposition: true,
               allowsInlineMediaPlayback: true,
+              allowsLinkPreview: true
             ),
             onWebViewCreated: (controller) {
               webViewController = controller;
@@ -89,7 +90,7 @@ class _PaymobIFrameInAppState extends State<PaymobIFrameInApp> {
                   if (widget.onPayment != null) {
                     widget.onPayment!(response);
                   }
-                  Navigator.pop(context, response);
+                  // Navigator.pop(context, response);
                 }
               }
             },

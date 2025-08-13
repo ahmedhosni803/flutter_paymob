@@ -131,7 +131,7 @@ class FlutterPaymob {
     if (response.statusCode >= 200) {
       final body = jsonDecode(response.body);
       _walletURL =
-          body["redirect_url"] ?? body["data"]?["redirect_url"] ?? "";
+          body["redirect_url"] == null || body["redirect_url"].isEmpty ? body["iframe_redirection_url"] : body["redirect_url"];
       return _walletURL;
     } else {
       throw "Error getting wallet URL";
@@ -161,7 +161,12 @@ class FlutterPaymob {
         appBarColor: appBarColor,
         context: context,
         redirectURL: "$_iFrameURL$_paymentKey",
-        onPayment: onPayment,
+        onPayment: (p0) {
+          // Navigator.pop(context);
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            onPayment!(p0);
+
+          });      },
       );
     }
     return null;
@@ -192,7 +197,15 @@ class FlutterPaymob {
         appBarColor: appBarColor,
         context: context,
         redirectURL: _walletURL,
-        onPayment: onPayment,
+        onPayment: (p0) {
+          // Navigator.pop(context);
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            onPayment!(p0);
+          });
+
+
+
+        },
       );
     }
     return null;
