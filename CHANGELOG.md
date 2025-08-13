@@ -1,3 +1,7 @@
+## 1.0.7
+
+- fixed a bug
+
 ## 1.0.6
 
 - Added more detailed explanations in the documentation.
