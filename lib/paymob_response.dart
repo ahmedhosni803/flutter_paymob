@@ -13,7 +13,7 @@ class PaymentPaymobResponse {
 
   factory PaymentPaymobResponse.fromJson(Map<String, dynamic> json) {
     return PaymentPaymobResponse(
-      success: json['success'] == "true",
+      success: json['success'].toString() == "true",
       transactionID: json['id'],
       message: json['message'],
       responseCode: json['txn_response_code'],

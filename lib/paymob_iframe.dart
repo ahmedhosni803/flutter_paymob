@@ -55,12 +55,11 @@ class _PaymobIFrameInAppState extends State<PaymobIFrameInApp> {
           InAppWebView(
             initialUrlRequest: URLRequest(url: WebUri(widget.redirectURL)),
             initialSettings: InAppWebViewSettings(
-              javaScriptEnabled: true,
-              useOnLoadResource: true,
-              useHybridComposition: true,
-              allowsInlineMediaPlayback: true,
-              allowsLinkPreview: true
-            ),
+                javaScriptEnabled: true,
+                useOnLoadResource: true,
+                useHybridComposition: true,
+                allowsInlineMediaPlayback: true,
+                allowsLinkPreview: true),
             onWebViewCreated: (controller) {
               webViewController = controller;
             },
